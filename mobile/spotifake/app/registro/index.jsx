@@ -42,7 +42,7 @@ const SignUp = () => {
         }
 
         try {
-            const resposta = await fetch('https://taskhub-s37f.onrender.com/auth/signup', {
+            const resposta = await fetch('http://localhost:8000/registro', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -74,32 +74,32 @@ const SignUp = () => {
                     style={styles.input}
                     onChangeText={setNome}
                     value={nome}
-                    placeholder="Insira seu nome aqui"
+                    placeholder="Nome"
                 />
                 <TextInput
                     style={styles.input}
                     onChangeText={setSobrenome}
                     value={sobrenome}
-                    placeholder="Insira seu e-mail aqui"
+                    placeholder="Sobrenome "
                 />
                 <TextInput
                     style={styles.input}
                     onChangeText={setEmail}
                     value={email}
-                    placeholder="Insira seu e-mail aqui"
+                    placeholder="E-mail "
                 />
                 <TextInput
                     style={styles.input}
                     onChangeText={setSenha}
                     value={senha}
-                    placeholder="Insira sua senha aqui"
+                    placeholder="Senha"
                     secureTextEntry={true}
                 />
                 <TextInput
                     style={styles.input}
                     onChangeText={setDataNascimento}
                     value={dataNascimento}
-                    placeholder="Insira seu e-mail aqui"
+                    placeholder="Data de nascimento "
                 />
 
 
