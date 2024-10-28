@@ -12,11 +12,13 @@ export default function Login() {
                 <TextInput placeholder='e-mail' style={styles.input} />
                 <TextInput placeholder='senha' style={styles.input} />
                 
-                <Pressable style={styles.botao}>
-                    <Text style={styles.textbotao}>Entrar</Text>
-                </Pressable>
+                <Link href="/home">
+                    <Pressable style={styles.botao}>
+                        <Text style={styles.textbotao}>Entrar</Text>
+                    </Pressable>
+                </Link>
                 
-                <Link href="/registro" style={styles.botao}>
+                <Link href="/registro">
                     <Pressable style={styles.botao}>
                         <Text style={styles.textbotao}>Criar conta</Text>
                     </Pressable>
@@ -57,12 +59,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
         borderRadius: 10,
         height: 30,
+        width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 15,
     },
     textbotao: {
         color: 'white',
-        textAlign: 'center', // Adicione esta linha
+        textAlign: 'center', 
     },
 });
