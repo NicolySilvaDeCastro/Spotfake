@@ -1,69 +1,15 @@
 import  Express  from "express";
-import { criarTabelas, User } from "./db.js";
-import bcryptjs from "bcryptjs"
-import jsonwebtoken from "jsonwebtoken";
+// import { criarTabelas } from "./db.js";
 import cors from "cors"
+import {rotas} from './Roteamento/rotas_autenticacao.js'
 
 const app = Express()
 app.use(Express.json())
 app.use(cors())
 // criarTabelas()
 
-app.post('/registro', async (req, res) =>{
-    const{nome, sobrenome, email, senha, dataNascimento} = req.body
-    if(!nome || !sobrenome || !email || !senha || !dataNascimento){
-        res.send('Voce deve preencher todos os campos')
-        return
-    }
-    const userExiste = await User.findOne({ where: { email:email } })
-    if (userExiste){
-        res.send('Usuario já existe')
-        return
-    }
-    const senhaCriptografada = bcryptjs.hashSync(senha, 10)
+app.use('/autenticacao', rotas)
 
-    const usuarioCriado = await User.create({nome, sobrenome, email, dataNascimento, senha: senhaCriptografada })
-
-
-    res.send("Usuario criado!")
-})
-
-
-
-app.post('/login', async (req, res) =>{
-    const{email, senha} = req.body
-    if(!email || !senha){
-        res.send('Voce deve preencher todos os campos')
-        return
-    }
-    const userExiste = await User.findOne({ where: { email:email } })
-    if (!userExiste){
-        res.send('Usuario nao existe')
-        return
-    }
-    const senhaValida = bcryptjs.compareSync(senha, userExiste.senha)
-    if (!senhaValida){
-        res.send('senha invalida')
-        return
-    }
-
-    const token = jsonwebtoken.sign(
-        {
-            "nome_completo": `${userExiste.nome} ${userExiste.sobrenome}`,
-            "email": userExiste.email,
-            "status": userExiste.status
-        },
-        'chavecriptografiajwt',
-        {expiresIn: 1000*60*5}//milisegundos x segundos x minutos
-        //payload, senha de criptografia, tempo de expiração
-    )
-
-
-    res.send({
-        msg: "ok usuario logado",
-        tokenJWT: token
-    })
-})
 
 app.listen(8000)
 

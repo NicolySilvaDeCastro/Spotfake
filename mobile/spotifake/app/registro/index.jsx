@@ -3,7 +3,6 @@ import { Link } from 'expo-router';
 import { View, Text, TextInput, Pressable, StyleSheet, Modal, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-
 const Alerta = ({ visible, message, onClose }) => (
     <Modal
         transparent={true}
@@ -23,7 +22,7 @@ const Alerta = ({ visible, message, onClose }) => (
 );
 
 
-const SignUp = () => {
+const Registro = () => {
     
     const [nome, setNome] = useState('');
     const [sobrenome, setSobrenome] = useState('');
@@ -48,7 +47,7 @@ const SignUp = () => {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ name: nome, email: email, password: senha })
+                body: JSON.stringify({ name: nome, email: email, password: senha }) //Preciso mudar isso?
             });
 
             if (resposta.ok) {
@@ -199,4 +198,4 @@ const styles = StyleSheet.create({
     
 });
 
-export default SignUp;
+export default Registro;
