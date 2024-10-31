@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'expo-router';
-import { View, Text, TextInput, Pressable, StyleSheet, Modal, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Pressable, StyleSheet, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+// ESSA PARTE MOSTRA UM MODAL
 const Alerta = ({ visible, message, onClose }) => (
     <Modal
         transparent={true}
@@ -13,17 +14,15 @@ const Alerta = ({ visible, message, onClose }) => (
         <View style={styles.modalBackground}>
             <View style={styles.modalContainer}>
                 <Text style={styles.modalText}>{message}</Text>
-                <TouchableOpacity onPress={onClose} style={styles.modalButton}>
+                <Pressable onPress={onClose} style={styles.modalButton}>
                     <Text style={styles.modalButtonText}>Fechar</Text>
-                </TouchableOpacity>
+                </Pressable>
             </View>
         </View>
     </Modal>
 );
 
-
 const Registro = () => {
-    
     const [nome, setNome] = useState('');
     const [sobrenome, setSobrenome] = useState('');
     const [email, setEmail] = useState('');
@@ -31,7 +30,6 @@ const Registro = () => {
     const [dataNascimento, setDataNascimento] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const [mensagemModal, setMensagemModal] = useState('');
-
 
     const registrarUsuario = async () => {
         if (!nome || !email || !senha) {
@@ -41,19 +39,26 @@ const Registro = () => {
         }
 
         try {
-            const resposta = await fetch('http://localhost:8000/registro', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ name: nome, email: email, password: senha }) //Preciso mudar isso?
-            });
+            const resposta = await fetch('http://localhost:8000/autenticacao/registro', { // Substitua pelo IP correto
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                nome: nome,
+                sobrenome: sobrenome,
+                email: email,
+                senha: senha,
+                dataNascimento: dataNascimento
+            })
+        });
 
             if (resposta.ok) {
                 setMensagemModal('Usuário criado com sucesso');
             } else {
-                setMensagemModal('Ocorreu um erro');
+                const errorData = await resposta.json();
+                setMensagemModal(errorData.message || 'Ocorreu um erro');
             }
         } catch (error) {
             setMensagemModal('Erro na conexão');
@@ -61,7 +66,6 @@ const Registro = () => {
 
         setModalVisible(true);
     }
-
 
     return (
         <SafeAreaView style={styles.container}>
@@ -79,13 +83,13 @@ const Registro = () => {
                     style={styles.input}
                     onChangeText={setSobrenome}
                     value={sobrenome}
-                    placeholder="Sobrenome "
+                    placeholder="Sobrenome"
                 />
                 <TextInput
                     style={styles.input}
                     onChangeText={setEmail}
                     value={email}
-                    placeholder="E-mail "
+                    placeholder="E-mail"
                 />
                 <TextInput
                     style={styles.input}
@@ -98,10 +102,8 @@ const Registro = () => {
                     style={styles.input}
                     onChangeText={setDataNascimento}
                     value={dataNascimento}
-                    placeholder="Data de nascimento "
+                    placeholder="Data de nascimento"
                 />
-
-
             </View>
 
             <Pressable onPress={registrarUsuario} style={styles.botao}>
@@ -114,13 +116,11 @@ const Registro = () => {
                 onClose={() => setModalVisible(false)}
             />
 
-                <Link href="/login">
-                    <Pressable style={styles.botao}>
-                        <Text style={styles.textbotao}>Entrar</Text>
-                    </Pressable>
-                </Link>
-            
-
+            <Link href="/login">
+                <Pressable style={styles.botao}>
+                    <Text style={styles.textbotao}>Entrar</Text>
+                </Pressable>
+            </Link>
         </SafeAreaView>
     );
 }
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     header: {
         width: '100%',
         padding: 20,
-        backgroundColor: 'black', 
+        backgroundColor: 'black',
         alignItems: 'center',
     },
     headerTitle: {
@@ -150,24 +150,22 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: 'lightgray',
         padding: 20,
-        marginBottom: 15, 
+        marginBottom: 15,
     },
     botao: {
         backgroundColor: 'black',
         borderRadius: 10,
-        height: 30,
+        height: 50, // Ajustado para um botão mais consistente
         width: 200,
         padding: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 15,  
+        marginBottom: 15,
     },
     textbotao: {
         color: 'white',
     },
-
-
-    //PARTE DO MODAL
+    // PARTE DO MODAL
     modalBackground: {
         flex: 1,
         justifyContent: 'center',
@@ -195,7 +193,6 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 18,
     }
-    
 });
 
 export default Registro;

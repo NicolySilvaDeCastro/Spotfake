@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'expo-router';
-import { View, Text, TextInput, Pressable, StyleSheet, Modal, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Pressable, StyleSheet, Modal} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+//requisição do tipo post, para a rota "/login"
 
 const Alerta = ({ visible, message, onClose }) => (
     <Modal
@@ -13,9 +15,9 @@ const Alerta = ({ visible, message, onClose }) => (
         <View style={styles.modalBackground}>
             <View style={styles.modalContainer}>
                 <Text style={styles.modalText}>{message}</Text>
-                <TouchableOpacity onPress={onClose} style={styles.modalButton}>
+                <Pressable onPress={onClose} style={styles.modalButton}>
                     <Text style={styles.modalButtonText}>Fechar</Text>
-                </TouchableOpacity>
+                </Pressable>
             </View>
         </View>
     </Modal>
@@ -35,7 +37,7 @@ const Login = () => {
         }
 
         try {
-            const resposta = await fetch('http://localhost:8000/login', {
+            const resposta = await fetch('http://localhost:8000/autenticacao/login', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -46,6 +48,7 @@ const Login = () => {
 
             if (resposta.ok) {
                 setMensagemModal('Usuário Logado!');
+
             } else {
                 setMensagemModal('Ocorreu um erro');
             }
@@ -81,7 +84,7 @@ const Login = () => {
                 />
             </View>
             <Pressable onPress={registrarUsuario} style={styles.botao}>
-                <Text style={styles.textbotao}>Cadastrar</Text>
+                <Text style={styles.textbotao}>Logar</Text>
             </Pressable>
             <Alerta
                 visible={modalVisible}

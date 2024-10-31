@@ -24,7 +24,6 @@ const registro =  async (req, res) =>{
 }
 
 
-
 const login = async (req, res) =>{
     const{email, senha} = req.body
     if(!email || !senha){
