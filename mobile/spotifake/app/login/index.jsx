@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'expo-router';
-import { View, Text, TextInput, Pressable, StyleSheet, Modal} from 'react-native';
+import { View, Text, TextInput, Pressable, StyleSheet, Modal, ImageBackground} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 //requisição do tipo post, para a rota "/login"
@@ -60,21 +60,22 @@ const Login = () => {
     }
 
     return (
+        <ImageBackground
+        source={{ uri: 'https://wallpaper.forfun.com/fetch/7d/7d79917a27cfd4d071634e26489ec754.jpeg' }}style={styles.background}>
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Login</Text>
             </View>
             <View>
             <View>
-                <Text style={styles.titulo}>Registre-se</Text>
-            </View>
-            <View>
+            <Text style={styles.lista}>E-mail</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setEmail}
                     value={email}
                     placeholder="Insira seu e-mail aqui"
                 />
+                <Text style={styles.lista}>Senha</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setSenha}
@@ -101,10 +102,15 @@ const Login = () => {
                 
             </View>
         </SafeAreaView>
+        </ImageBackground>
     );
 }
 
 const styles = StyleSheet.create({
+    background: {
+        flex: 1,
+        width: '100%',
+    },
     container: {
         flex: 1,
         alignItems: 'center',
@@ -114,28 +120,35 @@ const styles = StyleSheet.create({
     header: {
         width: '100%',
         padding: 20,
-        backgroundColor: 'black', 
+        backgroundColor: '#3a5a89', 
         alignItems: 'center',
+        height: 50,
     },
     headerTitle: {
-        fontSize: 30,
+        fontSize: 20,
         color: 'white',
         fontWeight: 'bold',
+        alignItems: 'center'
+        
     },
+    titulo: {
+        color: 'white',
+    },
+
     input: {
         width: '100%',
         height: 40,
         borderColor: 'black',
         borderRadius: 10,
-        backgroundColor: 'lightgray',
+        backgroundColor: 'white',
         padding: 20,
         marginBottom: 15, 
     },
     botao: {
-        backgroundColor: 'black',
+        backgroundColor: '#3a5a89',
         borderRadius: 10,
         height: 30,
-        width: 200,
+        width: '100%',
         padding: 20,
         alignItems: 'center',
         justifyContent: 'center',
@@ -144,7 +157,24 @@ const styles = StyleSheet.create({
     textbotao: {
         color: 'white',
     },
+    lista: {
+        color: 'white',
+        marginBottom: 5,
+    },
 
+    footer: {
+        width: '100%',
+        height: 50,
+        padding: 20,
+        backgroundColor: '#3a5a89', 
+        flexDirection: 'row',
+        position: 'absolute',
+        bottom: '0%'
+    },
+    itensfooter: {
+        color: 'white',
+        fontWeight: 'bold',
+    },
 
     //PARTE DO MODAL
     modalBackground: {

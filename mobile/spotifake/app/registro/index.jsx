@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'expo-router';
-import { View, Text, TextInput, Pressable, StyleSheet, Modal } from 'react-native';
+import { View, Text, TextInput, Pressable, StyleSheet, Modal, ImageBackground } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 // ESSA PARTE MOSTRA UM MODAL
@@ -68,29 +68,35 @@ const Registro = () => {
     }
 
     return (
+        <ImageBackground
+        source={{ uri: 'https://wallpaper.forfun.com/fetch/7d/7d79917a27cfd4d071634e26489ec754.jpeg' }}style={styles.background}> 
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Cadastro</Text>
             </View>
             <View>
+            <Text style={styles.lista}>Nome</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setNome}
                     value={nome}
                     placeholder="Nome"
                 />
+                <Text style={styles.lista}>Sobrenome</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setSobrenome}
                     value={sobrenome}
                     placeholder="Sobrenome"
                 />
+                <Text style={styles.lista}>E-mail</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setEmail}
                     value={email}
                     placeholder="E-mail"
                 />
+                <Text style={styles.lista}>Senha</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setSenha}
@@ -98,6 +104,7 @@ const Registro = () => {
                     placeholder="Senha"
                     secureTextEntry={true}
                 />
+                <Text style={styles.lista}>Data de Nascimento</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setDataNascimento}
@@ -122,10 +129,15 @@ const Registro = () => {
                 </Pressable>
             </Link>
         </SafeAreaView>
+        </ImageBackground>
     );
 }
 
 const styles = StyleSheet.create({
+    background: {
+        flex: 1,
+        width: '100%',
+    },
     container: {
         flex: 1,
         alignItems: 'center',
@@ -135,11 +147,34 @@ const styles = StyleSheet.create({
     header: {
         width: '100%',
         padding: 20,
-        backgroundColor: 'black',
+        backgroundColor: '#3a5a89', 
         alignItems: 'center',
+        height: 50,
     },
     headerTitle: {
-        fontSize: 30,
+        fontSize: 20,
+        color: 'white',
+        fontWeight: 'bold',
+        alignItems: 'center'
+        
+    },
+    titulo: {
+        color: 'white',
+    },
+    lista: {
+        color: 'white',
+        marginBottom: 5,
+    },
+    footer: {
+        width: '100%',
+        height: 50,
+        padding: 20,
+        backgroundColor: '#3a5a89', 
+        flexDirection: 'row',
+        position: 'absolute',
+        bottom: '0%'
+    },
+    itensfooter: {
         color: 'white',
         fontWeight: 'bold',
     },
@@ -148,14 +183,14 @@ const styles = StyleSheet.create({
         height: 40,
         borderColor: 'black',
         borderRadius: 10,
-        backgroundColor: 'lightgray',
+        backgroundColor: 'white',
         padding: 20,
         marginBottom: 15,
     },
     botao: {
-        backgroundColor: 'black',
+        backgroundColor: '#3a5a89',
         borderRadius: 10,
-        height: 50, // Ajustado para um botão mais consistente
+        height: 50, 
         width: 200,
         padding: 20,
         alignItems: 'center',
@@ -170,7 +205,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     modalContainer: {
         width: '80%',
