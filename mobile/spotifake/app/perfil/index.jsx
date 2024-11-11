@@ -1,11 +1,39 @@
 import React, { useState } from 'react';
 import { Link } from 'expo-router';
-import { View, Text, TextInput, Pressable, StyleSheet, ImageBackground, Image } from 'react-native';
+import { View, Text, TextInput, Pressable, StyleSheet, ImageBackground, Image, Button } from 'react-native';
+import * as ImagePicker from 'expo-image-picker'; 
+// import { AdvancedImage } from 'cloudinary-react-native';
+// import { Cloudinary } from "@cloudinary/url-gen";
+
+// Create a Cloudinary instance and set your cloud name.
+// const cld = new Cloudinary({
+//     cloud: {
+//         cloudName: 'demo'
+//     },
+//     url: ( 
+//         {secure: true} 
+//     )
+// });
 
 const Perfil = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
+    const [imagemUri, setImagemUri] = useState('');
+
+
+    const selecionarImagem = async () => { // Abre a biblioteca de imagens do dispositivo
+
+        const result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images, // Filtra para mostrar apenas imagens
+          allowsEditing: true, // Permite que o usuário edite a imagem escolhida
+          quality: 1, // Define a qualidade máxima da imagem selecionada
+        });
+    
+        if (!result.canceled) {
+          setImagemUri(result.assets[0].uri); // Acessar o URI da imagem selecionada corretamente
+        }
+      };
 
     return (
         <ImageBackground
@@ -25,14 +53,20 @@ const Perfil = () => {
 
                 
                 <View style={styles.containerFoto}>
-                    <Image
+                    {/* <Image
                         source={{ uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png' }} // URL da foto de perfil
                         style={styles.foto}
-                    />
+                    /> 
 
-                    <Pressable style={styles.mudarFoto}>
+                     <Pressable style={styles.mudarFoto}>
                         <Text style={styles.textButton}>Alterar Foto</Text>
+                    </Pressable> */}
+
+                    {imagemUri ? <Image source={{ uri: imagemUri }} style={styles.previewImagem} /> : null}
+                    <Pressable onPress={selecionarImagem} style={styles.botaoSalvar}>
+                    <Text style={styles.textButton}>Selecionar Imagem</Text>
                     </Pressable>
+
                 </View>
 
                 
@@ -111,12 +145,29 @@ const styles = StyleSheet.create({
     containerFoto: {
         alignItems: 'center',
         marginTop: 20,
-    },
-    foto: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-    },
+      },
+      previewImagem: {
+        width: 100,          // Defina uma largura fixa para centralizar
+        height: 100,         // Altura igual à largura
+        marginVertical: 10,
+        borderRadius: 50,    // Tornar a imagem redonda
+      },
+      botaoSalvar: {
+        backgroundColor: '#3a5a89',
+        padding: 10,
+        borderRadius: 5,
+        alignItems: 'center',
+        marginTop: 10,
+      },
+    // containerFoto: {
+    //     alignItems: 'center',
+    //     marginTop: 20,
+    // },
+    // foto: {
+    //     width: 100,
+    //     height: 100,
+    //     borderRadius: 50,
+    // },
     mudarFoto: {
         marginTop: 10,
         backgroundColor: '#3a5a89',
