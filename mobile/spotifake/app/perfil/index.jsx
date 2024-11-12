@@ -1,39 +1,53 @@
 import React, { useState } from 'react';
 import { Link } from 'expo-router';
-import { View, Text, TextInput, Pressable, StyleSheet, ImageBackground, Image, Button } from 'react-native';
+import { View, Text, TextInput, Pressable, StyleSheet, ImageBackground, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker'; 
-// import { AdvancedImage } from 'cloudinary-react-native';
-// import { Cloudinary } from "@cloudinary/url-gen";
-
-// Create a Cloudinary instance and set your cloud name.
-// const cld = new Cloudinary({
-//     cloud: {
-//         cloudName: 'demo'
-//     },
-//     url: ( 
-//         {secure: true} 
-//     )
-// });
 
 const Perfil = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [imagemUri, setImagemUri] = useState('');
+    const [NewImage, setNewImage] = useState('');
 
+    const selecionarImagem = async () => { // Abre a  biblioteca de imagens do dispositivo
 
-    const selecionarImagem = async () => { // Abre a biblioteca de imagens do dispositivo
-
-        const result = await ImagePicker.launchImageLibraryAsync({
+        let result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images, // Filtra para mostrar apenas imagens
           allowsEditing: true, // Permite que o usuário edite a imagem escolhida
           quality: 1, // Define a qualidade máxima da imagem selecionada
         });
     
         if (!result.canceled) {
-          setImagemUri(result.assets[0].uri); // Acessar o URI da imagem selecionada corretamente
+            console.log(result.assets[0])
+            setImagemUri(result.assets[0].uri)
+            setNewImage(true)
+        //   setImagemUri(result.assets[0].uri); // Acessar o URI da imagem selecionada corretamente
         }
       };
+
+    const HandleSendImage = async () => {
+        try{
+            const data = {
+                "file": image,
+                "upload_preset": 'ml_default',
+                "name": 'teste',
+            }
+            const res = await fetch('https://api.cloudinary.com/v1_1/delyuccy3/upload', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'aplication/json'
+                },
+                body: JSON.stringify(data)
+            });
+            const result = await res.json();
+            console.log(result);
+        }
+        catch (e) {
+        console.log(e)
+    }
+
+    }
 
     return (
         <ImageBackground
@@ -66,6 +80,11 @@ const Perfil = () => {
                     <Pressable onPress={selecionarImagem} style={styles.botaoSalvar}>
                     <Text style={styles.textButton}>Selecionar Imagem</Text>
                     </Pressable>
+                    
+                    <Pressable onPress={HandleSendImage} style={styles.botaoSalvar}>
+                    <Text style={styles.textButton}>Salvar</Text>
+                    </Pressable>
+
 
                 </View>
 
