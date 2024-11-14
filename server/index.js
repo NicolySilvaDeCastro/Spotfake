@@ -2,6 +2,7 @@ import  Express  from "express";
 // import { criarTabelas } from "./db.js";
 import cors from "cors"
 import {rotas} from './Roteamento/rotas_autenticacao.js'
+import { rotasUsuarios } from './Roteamento/rotas_usuarios.js';
 
 const app = Express()
 app.use(Express.json())
@@ -9,9 +10,13 @@ app.use(cors())
 // criarTabelas()
 
 app.use('/autenticacao', rotas)
+app.use('/usuarios', rotasUsuarios);
+
 
 
 app.listen(8000)
+
+
 
 //TIPOS DE ROTAS
 // GET quando é preciso PEGAR uma informação
@@ -50,6 +55,25 @@ app.listen(8000)
 //LINHA 09 
 //"dev": "nodemon index.js"
 //
+
+/*// index.js
+import express from 'express';
+import cors from 'cors';
+import { rotasUsuarios } from './Roteamento/rotas_usuarios.js';
+
+const app = express();
+app.use(express.json());
+app.use(cors());
+
+// Rotas para usuários
+app.use('/usuarios', rotasUsuarios);
+
+app.listen(8000, () => {
+    console.log('Servidor rodando na porta 8000');
+});
+ */
+
+
 
 
 //INSTALAÇÕES
