@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'expo-router';
 import { View, Text, TextInput, Pressable, StyleSheet, Modal, ImageBackground } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView } from "react-native";
 
 // ESSA PARTE MOSTRA UM MODAL
 const Alerta = ({ visible, message, onClose }) => (
@@ -70,7 +70,7 @@ const Registro = () => {
     return (
         <ImageBackground
         source={{ uri: 'https://wallpaper.forfun.com/fetch/7d/7d79917a27cfd4d071634e26489ec754.jpeg' }}style={styles.background}> 
-        <SafeAreaView style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Cadastro</Text>
             </View>
@@ -128,7 +128,8 @@ const Registro = () => {
                     <Text style={styles.textbotao}>Entrar</Text>
                 </Pressable>
             </Link>
-        </SafeAreaView>
+        </ScrollView>
+        
         </ImageBackground>
     );
 }

@@ -1,5 +1,5 @@
 import express from 'express';
-import { listarUsuarios, encontrarUsuario, deletarUsuario } from '../Controlador/controlar_usuarios.js';
+import { listarUsuarios, encontrarUsuario, deletarUsuario } from '../Controlador/controlador_usuarios.js';
 
 const rotasUsuarios = express.Router();
 rotasUsuarios.get('/', listarUsuarios);

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ScrollView } from "react-native";
 import { Link } from 'expo-router';
 import { View, Text, TextInput, Pressable, StyleSheet, ImageBackground, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker'; 
@@ -7,6 +8,7 @@ const Perfil = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
+    const [senha, setSenha] = useState('');
     const [imagemUri, setImagemUri] = useState('');
     const [NewImage, setNewImage] = useState('');
 
@@ -29,17 +31,18 @@ const Perfil = () => {
     const HandleSendImage = async () => {
         try{
             const data = {
-                "file": image,
+                "file": imagemUri,
                 "upload_preset": 'ml_default',
                 "name": 'teste',
             }
             const res = await fetch('https://api.cloudinary.com/v1_1/delyuccy3/upload', {
                 method: 'POST',
                 headers: {
-                    'content-type': 'aplication/json'
+                    'content-type': 'application/json'
                 },
                 body: JSON.stringify(data)
             });
+
             const result = await res.json();
             console.log(result);
         }
@@ -54,7 +57,7 @@ const Perfil = () => {
             source={{ uri: 'https://wallpaper.forfun.com/fetch/7d/7d79917a27cfd4d071634e26489ec754.jpeg' }}
             style={styles.background}
         >
-            <View style={styles.container}>
+            <ScrollView  contentContainerStyle={styles.container}>
               
                 <View style={styles.header}>
                     <Text style={styles.headerTitle}>Perfil</Text>
@@ -93,7 +96,7 @@ const Perfil = () => {
                     <Text style={styles.lista}>Nome</Text>
                     <TextInput
                         style={styles.input}
-                        placeholder="Digite seu nome"
+                        placeholder="Edite seu nome"
                         value={name}
                         onChangeText={setName}
                     />
@@ -101,15 +104,23 @@ const Perfil = () => {
                     <Text style={styles.lista}>E-mail</Text>
                     <TextInput
                         style={styles.input}
-                        placeholder="Digite seu e-mail"
+                        placeholder="Digite seu novo e-mail"
                         value={email}
                         onChangeText={setEmail}
+                    />
+
+                    <Text style={styles.lista}>Senha</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Digite sua nova senha"
+                        value={senha}
+                        onChangeText={setSenha}
                     />
 
                     <Text style={styles.lista}>Telefone</Text>
                     <TextInput
                         style={styles.input}
-                        placeholder="Digite seu telefone"
+                        placeholder="Digite seu novo telefone"
                         value={phone}
                         onChangeText={setPhone}
                     />
@@ -123,7 +134,7 @@ const Perfil = () => {
                     <Text style={styles.itensfooter}>Configurações</Text>
                     <Text style={styles.itensfooter}>Ajuda</Text>
                 </View>
-            </View>
+            </ScrollView >
         </ImageBackground>
     );
 }

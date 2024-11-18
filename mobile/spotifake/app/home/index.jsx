@@ -1,16 +1,17 @@
 import React from 'react';
 import { Link } from 'expo-router';
+import { ScrollView } from "react-native";
 import { View, Text, StyleSheet, TextInput, Pressable, ImageBackground } from 'react-native';
 
 export default function Login() {
     return (
         <ImageBackground
         source={{ uri: 'https://wallpaper.forfun.com/fetch/7d/7d79917a27cfd4d071634e26489ec754.jpeg' }}style={styles.background}>
-        <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Home</Text>
             </View>
-        </View>
+        </ScrollView>
         </ImageBackground>
     );
 }

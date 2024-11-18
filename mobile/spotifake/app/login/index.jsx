@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'expo-router';
 import { View, Text, TextInput, Pressable, StyleSheet, Modal, ImageBackground} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView } from "react-native";
 
 //requisição do tipo post, para a rota "/login"
 
@@ -62,7 +62,7 @@ const Login = () => {
     return (
         <ImageBackground
         source={{ uri: 'https://wallpaper.forfun.com/fetch/7d/7d79917a27cfd4d071634e26489ec754.jpeg' }}style={styles.background}>
-        <SafeAreaView style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Login</Text>
             </View>
@@ -101,7 +101,7 @@ const Login = () => {
                 </Link>
                 
             </View>
-        </SafeAreaView>
+        </ScrollView>
         </ImageBackground>
     );
 }
