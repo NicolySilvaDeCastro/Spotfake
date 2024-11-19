@@ -11,6 +11,11 @@ export default function Login() {
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Home</Text>
             </View>
+
+            <View style={styles.footer}>
+                    <Text style={styles.itensfooter}>Configurações</Text>
+                    <Text style={styles.itensfooter}>Ajuda</Text>
+                </View>
         </ScrollView>
         </ImageBackground>
     );
