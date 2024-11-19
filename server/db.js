@@ -10,6 +10,7 @@ const sequelize = new Sequelize( //define a conexão com o banco de dados
         dialect: 'postgres'
     }
 )
+
 const User = sequelize.define('user', { // definindo a tabela do banco de dados
     nome: { //atributos
         type: Sequelize.DataTypes.STRING, //tipo do atributo
@@ -37,76 +38,86 @@ const User = sequelize.define('user', { // definindo a tabela do banco de dados
         allowNull: false,
         defaultValue: 'inativo'//padrão da lista é inativo "não pagou boleto"
     },
-})
-
-const Artista = sequelize.define('Artist', {
-    nome: {
-        type: Sequelize.DataTypes.STRING,
-        allowNull: false,
-    },
-    bio: {
-        type: Sequelize.DataTypes.TEXT,
-        allowNull: true,
-    },
-    imageUrl: {
+    //ADICIONEI MAS AINDA NÃO FOI CHAMADA
+        profile_image: {
         type: Sequelize.DataTypes.STRING,
         allowNull: true,
     }
 })
 
+const Artista = sequelize.define('artista', {
+    nome: {
+        type:Sequelize.DataTypes.STRING,
+        allowNull: false,
+    },
+    bio: {
+        type:Sequelize.DataTypes.TEXT,
+        allowNull: true,
+    },
+    imageUrl: {
+        type:Sequelize.DataTypes.STRING,
+        allowNull: true,
+    }
+}, {
+    tableName: 'artists',
+});
 
-const Album = sequelize.define('Album', {
+const Album = sequelize.define('album', {
     title: {
-        type: Sequelize.DataTypes.STRING,
+        type:Sequelize.DataTypes.STRING,
         allowNull: false,
     },
     releaseYear: {
-        type: Sequelize.DataTypes.INTEGER,
+        type:Sequelize.DataTypes.INTEGER,
         allowNull: false,
     },
     coverImageUrl: {
-        type: Sequelize.DataTypes.STRING,
+        type:Sequelize.DataTypes.STRING,
         allowNull: true,
     },
+}, {
+    tableName: 'albums',
 });
 
-Album.belongsTo(Artista, {
-    foreignKey: 'artistaId',
-    onDelete: 'CASCADE',
-});
-
-Artista.hasMany(Album, {
-    foreignKey: 'artistaId',
-    as: 'Albums'
-  });
-
-const Musica = sequelize.define('Musica', {
+const Musica = sequelize.define('musica', {
     titulo: {
-        type: Sequelize.DataTypes.STRING,
+        type:Sequelize.DataTypes.STRING,
         allowNull: false,
     },
     duracao: {
-        type: Sequelize.DataTypes.INTEGER,  // Duração em segundos
+        type:Sequelize.DataTypes.INTEGER,
         allowNull: false,
     },
     fileUrl: {
-        type: Sequelize.DataTypes.STRING,
+        type:Sequelize.DataTypes.STRING,
         allowNull: false,
     },
+}, {
+    tableName: 'musicas',
 });
 
-Musica.belongsTo(Album, {
-    foreignKey: 'albumId',
-    onDelete: 'CASCADE',
-});
-Musica.belongsTo(Artista, {
-    foreignKey: 'artistaId',
+//relacionamentos
+
+Album.belongsTo(Artista, {
+    foreignKey: 'artista_id',
     onDelete: 'CASCADE',
 });
 Album.hasMany(Musica, {
-    foreignKey: 'albumId',
-    as: 'Musicas'
-  });
+    foreignKey: 'album_id',
+    as: 'Musicas',
+});
+Artista.hasMany(Album, {
+    foreignKey: 'artista_id',
+    as: 'Albums',
+});
+Musica.belongsTo(Album, {
+    foreignKey: 'album_id',
+    onDelete: 'CASCADE',
+});
+Musica.belongsTo(Artista, {
+    foreignKey: 'artista_id',
+    onDelete: 'CASCADE',
+});
 
 const criarTabelas = () => {
     sequelize.authenticate().then(() => {
@@ -115,7 +126,7 @@ const criarTabelas = () => {
         .catch((err) => {
             console.log(err)
         })
-    sequelize.sync({ alter: true }).then(() => {
+    sequelize.sync({ force: true }).then(() => {
         console.log('tabela criada')
     })
 }

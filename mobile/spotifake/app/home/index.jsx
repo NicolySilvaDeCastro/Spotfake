@@ -1,22 +1,53 @@
 import React from 'react';
-import { Link } from 'expo-router';
+import { Link } from 'expo-router'; // Importando o Link para navegação
 import { ScrollView } from "react-native";
-import { View, Text, StyleSheet, TextInput, Pressable, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, Pressable, Image } from 'react-native';
 
 export default function Login() {
     return (
         <ImageBackground
-        source={{ uri: 'https://wallpaper.forfun.com/fetch/7d/7d79917a27cfd4d071634e26489ec754.jpeg' }}style={styles.background}>
-        <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}>Home</Text>
-            </View>
-
-            <View style={styles.footer}>
-                    <Text style={styles.itensfooter}>Configurações</Text>
-                    <Text style={styles.itensfooter}>Ajuda</Text>
+            source={{ uri: 'https://wallpaper.forfun.com/fetch/7d/7d79917a27cfd4d071634e26489ec754.jpeg' }}
+            style={styles.background}
+        >
+            <ScrollView contentContainerStyle={styles.container}>
+                <View style={styles.header}>
+                    <Text style={styles.headerTitle}>Home</Text>
                 </View>
-        </ScrollView>
+
+                <View style={styles.footer}>
+                    {/* Imagem como botão */}
+                    <Link  href="/home"> {/* Caminho para a página que deseja navegar */}
+                        <Pressable style={styles.imageButton}>
+                            <Image
+                                source={require('../../assets/images/home.png')} // Caminho correto para a imagem
+                                style={styles.image}
+                            />
+                        </Pressable>
+                    </Link>
+
+                    <Link  href="/home"> {/* Caminho para a página que deseja navegar */}
+                        <Pressable style={styles.imageButton}>
+                            <Image
+                                source={require('../../assets/images/home.png')} // Caminho correto para a imagem
+                                style={styles.image}
+                            />
+                        </Pressable>
+                    </Link>
+                    
+                    <Link  href="/home"> {/* Caminho para a página que deseja navegar */}
+                        <Pressable style={styles.imageButton}>
+                            <Image
+                                source={require('../../assets/images/home.png')} // Caminho correto para a imagem
+                                style={styles.image}
+                            />
+                        </Pressable>
+                    </Link>
+                
+
+
+
+                </View>
+            </ScrollView>
         </ImageBackground>
     );
 }
@@ -35,7 +66,7 @@ const styles = StyleSheet.create({
     header: {
         width: '100%',
         padding: 20,
-        backgroundColor: '#3a5a89', 
+        backgroundColor: '#3a5a89',
         alignItems: 'center',
         height: 50,
     },
@@ -43,48 +74,29 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: 'white',
         fontWeight: 'bold',
-        alignItems: 'center'
-        
-    },
-    titulo: {
-        color: 'white',
-    },
-
-    input: {
-        width: '100%',
-        height: 40,
-        borderColor: 'black',
-        borderRadius: 10,
-        backgroundColor: 'lightgray',
-        padding: 20,
-        marginBottom: 15, 
-    },
-    botao: {
-        backgroundColor: 'black',
-        borderRadius: 10,
-        height: 30,
-        width: 200,
-        padding: 20,
         alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 15,  
     },
-    textbotao: {
-        color: 'white',
+    imageButton: {
+        width: 50,        // Ajustado para caber no footer
+        height: 50,       // Ajustado para caber no footer
+        borderRadius: 25, // Tornar a imagem circular
+        overflow: 'hidden',
+        justifyContent: 'center', // Centralizando a imagem
+        alignItems: 'center',     // Centralizando a imagem
     },
-
-
+    image: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 25, // Bordas arredondadas para a imagem
+    },
     footer: {
         width: '100%',
-        height: 50,
-        padding: 20,
-        backgroundColor: '#3a5a89', 
+        height: 60,        // Ajustado para dar mais espaço no footer
+        backgroundColor: '#3a5a89',
         flexDirection: 'row',
         position: 'absolute',
-        bottom: '0%'
-    },
-    itensfooter: {
-        color: 'white',
-        fontWeight: 'bold',
+        bottom: 0,         // Corrigido para estar sempre no fundo
+        justifyContent: 'center', // Centraliza a imagem dentro do footer
+        alignItems: 'center',     // Alinha a imagem verticalmente
     },
 });
