@@ -38,7 +38,36 @@ const deletarUsuario = async (req, res) => {
     }
 };
 
-export { listarUsuarios, encontrarUsuario, deletarUsuario }
+
+const atualizarUsuario = async (req, res) => {
+    try {
+        const { id } = req.params; // Obtém o ID do usuário a ser atualizado
+        const { nome, sobrenome, email, senha, dataNascimento, profile_image } = req.body; // Obtém os dados do corpo da requisição
+
+        // Encontra o usuário pelo ID
+        const usuario = await User.findByPk(id);
+
+        if (!usuario) {
+            return res.status(404).json({ error: 'Usuário não encontrado' });
+        }
+
+        // Atualiza os dados do usuário
+        await usuario.update({
+            nome: nome || usuario.nome,
+            sobrenome: sobrenome || usuario.sobrenome,
+            email: email || usuario.email,
+            senha: senha || usuario.senha,
+            dataNascimento: dataNascimento || usuario.dataNascimento,
+            profile_image: profile_image || usuario.profile_image,
+        });
+
+        res.status(200).json({ message: 'Usuário atualizado com sucesso', usuario });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao atualizar usuário', details: error.message });
+    }
+};
+
+export { listarUsuarios, encontrarUsuario, deletarUsuario, atualizarUsuario }
 
 //ANOTAÇÕES
 

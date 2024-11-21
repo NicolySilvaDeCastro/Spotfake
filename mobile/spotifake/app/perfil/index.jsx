@@ -4,13 +4,47 @@ import { Link } from 'expo-router';
 import { View, Text, TextInput, Pressable, StyleSheet, ImageBackground, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker'; 
 
-const Perfil = () => {
+const Perfil = ({ userId }) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [senha, setSenha] = useState('');
     const [imagemUri, setImagemUri] = useState('');
-    const [NewImage, setNewImage] = useState('');
+    
+    const atualizarUsuario = async () => {
+        if (!userId) {
+            console.error("ID do usuário não fornecido.");
+            return alert("Erro: ID do usuário não encontrado.");
+        }
+
+        try {
+            const data = {
+                nome: name,
+                email: email,
+                senha: senha,
+                telefone: phone,
+                profile_image: imagemUri,
+            };
+
+            const response = await fetch(`http://localhost:8000/usuarios/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert('Usuário atualizado com sucesso!');
+            } else {
+                alert(`Erro: ${result.error}`);
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Erro ao atualizar usuário.');
+        }
+    };
 
     const selecionarImagem = async () => { // Abre a  biblioteca de imagens do dispositivo
 
@@ -88,6 +122,10 @@ const Perfil = () => {
                     <Text style={styles.textButton}>Salvar</Text>
                     </Pressable>
 
+                    <Pressable onPress={atualizarUsuario} style={styles.botaoSalvar}>
+                    <Text style={styles.textButton}>Salvar Alterações</Text>
+                    </Pressable>
+
 
                 </View>
 
@@ -125,9 +163,10 @@ const Perfil = () => {
                         onChangeText={setPhone}
                     />
 
-                    <Pressable style={styles.botaoSalvar}>
-                        <Text style={styles.textButton}>Salvar Alterações</Text>
+                    <Pressable onPress={atualizarUsuario} style={styles.botaoSalvar}>
+                    <Text style={styles.textButton}>Salvar Alterações</Text>
                     </Pressable>
+
                 </View>
 
                 <View style={styles.footer}>
@@ -235,7 +274,7 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: '#3a5a89', 
         flexDirection: 'row',
-        position: 'absolute',
+        position: 'sticky',
         bottom: 0,
         justifyContent: 'space-around',
     },

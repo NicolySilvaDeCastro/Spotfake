@@ -15,20 +15,10 @@ export default function Login() {
                 </View>
 
                 <View style={styles.footer}>
-                    {/* Imagem como botão */}
-                    <Link  href="/home"> {/* Caminho para a página que deseja navegar */}
+                    <Link  href="/perfil"> {/* Caminho para a página que deseja navegar */}
                         <Pressable style={styles.imageButton}>
                             <Image
-                                source={require('../../assets/images/home.png')} // Caminho correto para a imagem
-                                style={styles.image}
-                            />
-                        </Pressable>
-                    </Link>
-
-                    <Link  href="/home"> {/* Caminho para a página que deseja navegar */}
-                        <Pressable style={styles.imageButton}>
-                            <Image
-                                source={require('../../assets/images/home.png')} // Caminho correto para a imagem
+                                source={require('../../assets/images/user_processed.png')} // Caminho correto para a imagem
                                 style={styles.image}
                             />
                         </Pressable>
@@ -37,12 +27,19 @@ export default function Login() {
                     <Link  href="/home"> {/* Caminho para a página que deseja navegar */}
                         <Pressable style={styles.imageButton}>
                             <Image
-                                source={require('../../assets/images/home.png')} // Caminho correto para a imagem
+                                source={require('../../assets/images/home_processed.png')} // Caminho correto para a imagem
                                 style={styles.image}
                             />
                         </Pressable>
                     </Link>
-                
+                    <Link  href="/listas"> {/* Caminho para a página que deseja navegar */}
+                        <Pressable style={styles.imageButton}>
+                            <Image
+                                source={require('../../assets/images/fone.png')} // Caminho correto para a imagem
+                                style={styles.image}
+                            />
+                        </Pressable>
+                    </Link>
 
 
 
