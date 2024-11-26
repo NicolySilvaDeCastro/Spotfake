@@ -170,8 +170,21 @@ const Perfil = ({ userId }) => {
                 </View>
 
                 <View style={styles.footer}>
-                    <Text style={styles.itensfooter}>Configurações</Text>
-                    <Text style={styles.itensfooter}>Ajuda</Text>
+                    <Link  href="/perfil"> 
+                        <Pressable style={styles.imageButton}>
+                            <Image source={require('../../assets/images/user_processed.png')}style={styles.image} />
+                        </Pressable>
+                    </Link>
+                    <Link  href="/home"> 
+                        <Pressable style={styles.imageButton}>
+                            <Image source={require('../../assets/images/home_processed.png')} style={styles.image}/>
+                        </Pressable>
+                    </Link>
+                    <Link  href="/listas">
+                        <Pressable style={styles.imageButton}>
+                            <Image source={require('../../assets/images/fone.png')} style={styles.image}/>
+                        </Pressable>
+                    </Link>
                 </View>
             </ScrollView >
         </ImageBackground>
@@ -270,17 +283,23 @@ const styles = StyleSheet.create({
     },
     footer: {
         width: '100%',
-        height: 50,
-        padding: 20,
-        backgroundColor: '#3a5a89', 
+        height: 60,
+        backgroundColor: '#3a5a89',
         flexDirection: 'row',
-        position: 'sticky',
-        bottom: 0,
-        justifyContent: 'space-around',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-    itensfooter: {
-        color: 'white',
-        fontWeight: 'bold',
+    imageButton: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    image: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 25,
     },
 });
 

@@ -3,6 +3,8 @@ import  Express  from "express";
 import cors from "cors"
 import {rotas} from './Roteamento/rotas_autenticacao.js'
 import { rotasUsuarios } from './Roteamento/rotas_usuarios.js';
+import { rotasArtistas } from './Roteamento/rotas_artistas.js';
+
 
 const app = Express()
 app.use(Express.json())
@@ -11,6 +13,7 @@ app.use(cors())
 
 app.use('/autenticacao', rotas)
 app.use('/usuarios', rotasUsuarios);
+app.use('/artistas', rotasArtistas);
 
 
 
