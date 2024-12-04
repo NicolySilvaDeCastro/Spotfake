@@ -10,7 +10,8 @@ const Perfil = ({ userId }) => {
     const [phone, setPhone] = useState('');
     const [senha, setSenha] = useState('');
     const [imagemUri, setImagemUri] = useState('');
-    
+    const [newImage, setNewImage] = useState('');
+   
     const atualizarUsuario = async () => {
         if (!userId) {
             console.error("ID do usuário não fornecido.");
